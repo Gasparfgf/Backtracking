@@ -5,7 +5,6 @@
 using namespace std;
 
 
-const string MAZE_FILE = "maze.txt";
 const int MAZE_SIZE = 20;
 vector<vector<char>> maze;
 
@@ -32,6 +31,7 @@ void printMaze() {
 }
 
 int main() {
+    const string MAZE_FILE = "maze.txt";
     readMazeFile(MAZE_FILE);
     printMaze();
     return 0;
