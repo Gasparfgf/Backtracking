@@ -1,6 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <thread>
+#include <mutex>
 
 using namespace std;
 
@@ -90,6 +92,29 @@ bool canStartWithD(Position &start) {
 }
 
 
+bool solveMazeInParallel(Position start) {
+    bool found = false;
+    thread threads[NUMBER_OF_DIRECTIONS];
+    bool results[NUMBER_OF_DIRECTIONS] = {false, false, false, false};
+
+    for (int direction = 0; direction < NUMBER_OF_DIRECTIONS; direction++) {
+        threads[direction] = thread([&, direction]() {
+            bool hasC = false, hasB = false, hasE = false;
+            Position newPos = {start.x + dx[direction], start.y + dy[direction]};
+            results[direction] = solveMazeSequentially(newPos, hasC, hasB, hasE);
+        });
+    }
+
+    for (int i = 0; i < NUMBER_OF_DIRECTIONS; i++) {
+        threads[i].join();
+        if (results[i]) found = true;
+    }
+
+    return found;
+}
+
+
+
 int main() {
     readMazeFile("maze.txt");
     
@@ -109,9 +134,19 @@ int main() {
 
     bool found = solveMazeSequentially(start, false, false, false);
     if (found) {
-        cout << "Monde séquentiel ✅ : Solution trouvée !" << endl;
+        cout << "Mode séquentiel ✅ : Solution trouvée !" << endl;
     } else {
-        cout << "Monde séquentiel ❌ : Aucune solution trouvée." << endl;
+        cout << "Mode séquentiel ❌ : Aucune solution trouvée." << endl;
+    }
+
+    visitedBoxes.assign(size1, vector<bool>(size2, false));
+
+    found = solveMazeInParallel(start);
+
+    if (found) {
+        cout << "Mode parallèle ✅ : Solution trouvée !" << endl;
+    } else {
+        cout << "Monde parallèle ❌ : Aucune solution trouvée." << endl;
     }
 
     return 0;
