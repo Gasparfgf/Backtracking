@@ -48,7 +48,7 @@ bool isValidMove(int x, int y) {
     return x >= 0 && x < size1 && y >= 0 && y < size2 && maze[x][y] != '#' && !visitedBoxes[x][y];
 }
 
-bool solveSequentially(Position pos, bool pickedUpB, bool pickedUpC, bool pickedUpE) {
+bool solveMazeSequentially(Position pos, bool pickedUpB, bool pickedUpC, bool pickedUpE) {
     int x = pos.x;
     int y = pos.y;
 
@@ -67,7 +67,7 @@ bool solveSequentially(Position pos, bool pickedUpB, bool pickedUpC, bool picked
 
     for (int direction = 0; direction < NUMBER_OF_DIRECTIONS; direction++) {
         Position nextPosition = {x + dx[direction], y + dy[direction]};
-        if(solveSequentially(nextPosition, pickedUpB, pickedUpC, pickedUpE)) return true;
+        if(solveMazeSequentially(nextPosition, pickedUpB, pickedUpC, pickedUpE)) return true;
     }
 
     visitedBoxes[x][y] = false;
@@ -107,7 +107,7 @@ int main() {
         return 1;
     }
 
-    bool found = solveSequentially(start, false, false, false);
+    bool found = solveMazeSequentially(start, false, false, false);
     if (found) {
         cout << "Monde séquentiel ✅ : Solution trouvée !" << endl;
     } else {
