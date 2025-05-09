@@ -17,27 +17,27 @@ The objective of the program is to find a path from starting point D to ending p
 
 ## Structure des répertoires du projet
 
-src/
-├── common/
-│   ├── MazeCommon.hpp
-│   └── MazeCommon.cpp
-├── labyrinthe
-|   ├── maze0.txt
-|   ├── maze1-1.txt
-|   ├── maze1-2.txt
-|   └── maze2.txt
-├── parallel_direction/
-│   ├── ParallelDirectionSolver.hpp
-│   └── ParallelDirectionSolver.cpp
-├── parallel_level/
-│   ├── ParallelLevelSolver.hpp
-│   └── ParallelLevelSolver.cpp
-└──  sequential/
-    ├── SequentialSolver.hpp
-    └── SequentialSolver.cpp
-main.cpp
-.gitignore
-README.md
+src/␣␣
+├── common/␣␣
+│   ├── MazeCommon.hpp␣␣
+│   └── MazeCommon.cpp␣␣
+├── labyrinthe␣␣
+|   ├── maze0.txt␣␣
+|   ├── maze1-1.txt␣␣
+|   ├── maze1-2.txt␣␣
+|   └── maze2.txt␣␣
+├── parallel_direction/␣␣
+│   ├── ParallelDirectionSolver.hpp␣␣
+│   └── ParallelDirectionSolver.cpp␣␣
+├── parallel_level/␣␣
+│   ├── ParallelLevelSolver.hpp␣␣
+│   └── ParallelLevelSolver.cpp␣␣
+└──  sequential/␣␣
+    ├── SequentialSolver.hpp␣␣
+    └── SequentialSolver.cpp␣␣
+main.cpp␣␣
+.gitignore␣␣
+README.md␣␣
 
 ## Running the project
 
