@@ -10,7 +10,6 @@ public:
 
 private:
     bool solveMazeByDirectionParallel(Position start);
-    
     bool solveDirection(Position pos, bool hasB, bool hasC, bool hasE, 
                        std::vector<Position>& threadPath, 
                        std::vector<Level>& threadLevels);

@@ -1,8 +1,11 @@
-#include <iostream>
-#include <memory>
 #include "common/MazeCommon.hpp"
 #include "sequential/SequentialSolver.hpp"
 #include "parallel_level/ParallelLevelSolver.hpp"
+#include "parallel_direction/ParallelDirectionSolver.hpp"
+#include <memory>
+#include <iostream>
+#include <vector>
+#include <string>
 
 using namespace std;
 
@@ -11,6 +14,7 @@ int showMenu() {
     cout << "\n=== RÉSOLUTION DE LABYRINTHE MULTI-NIVEAUX ===\n";
     cout << "1. Résolution par backtracking séquentiel\n";
     cout << "2. Résolution par backtracking parallèle par niveau\n";
+    cout << "3. Résolution par backtracking parallèle par directions\n";
     cout << "0. Quitter\n";
     cout << "Votre choix : ";
     cin >> choice;
@@ -26,19 +30,17 @@ int main() {
     int choice;
     do {
         choice = showMenu();
-        
         switch (choice) {
             case 1: {
                 cout << "\n=== Résolution par backtracking séquentiel ===\n";
-                solver = make_unique<SequentialSolver>();
+                // Remplacement de make_unique (C++14) par new (C++11)
+                solver = unique_ptr<MazeSolver>(new SequentialSolver());
                 solver->readMazeFiles(files);
-                
                 Position start = solver->getStartPosition();
                 if (start.x == -1) {
                     cerr << "Erreur ❌ : Pas de point de départ 'D' trouvé dans le labyrinthe !" << endl;
                     break;
                 }
-                
                 bool success = solver->solveMaze();
                 if (success) {
                     cout << "Solution trouvée ✅\n";
@@ -51,9 +53,24 @@ int main() {
             }
             case 2: {
                 cout << "\n=== Résolution par backtracking parallèle par niveau ===\n";
-                solver = make_unique<ParallelLevelSolver>();
+                // Remplacement de make_unique (C++14) par new (C++11)
+                solver = unique_ptr<MazeSolver>(new ParallelLevelSolver());
                 solver->readMazeFiles(files);
-                
+                bool success = solver->solveMaze();
+                if (success) {
+                    cout << "Solution trouvée ✅\n";
+                    cout << "Chemin final :\n";
+                    solver->printAllLevels();
+                } else {
+                    cout << "Aucune solution trouvée ❌\n";
+                }
+                break;
+            }
+            case 3: {
+                cout << "\n=== Résolution par backtracking parallèle par directions ===\n";
+                // Remplacement de make_unique (C++14) par new (C++11)
+                solver = unique_ptr<MazeSolver>(new ParallelDirectionSolver());
+                solver->readMazeFiles(files);
                 bool success = solver->solveMaze();
                 if (success) {
                     cout << "Solution trouvée ✅\n";
@@ -70,7 +87,6 @@ int main() {
             default:
                 cout << "Choix invalide. Veuillez réessayer.\n";
         }
-        
     } while (choice != 0);
     
     return 0;
