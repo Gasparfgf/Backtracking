@@ -1,18 +1,33 @@
 #include "SequentialSolver.hpp"
+#include <iostream>
 
 bool SequentialSolver::solveMaze() {
-    resetMaze();
-    Position start = getStartPosition();
-    if (start.x == -1) {
-        std::cerr << "Erreur ❌ : Pas de point de départ 'D' trouvé dans le labyrinthe !" << std::endl;
+    try {
+        resetMaze();
+        
+        if (!checkMazeIntegrity()) {
+            std::cerr << "❌ Erreur: Vérification du labyrinthe échouée" << std::endl;
+            return false;
+        }
+        
+        Position start = getStartPosition();
+        bool result = solveMazeSequentially(start, false, false, false);
+        
+        if (result) {
+            markPath();
+            std::cout << "✅ Solution séquentielle trouvée en " << path.size() << " pas" << std::endl;
+        } else {
+            std::cout << "❌ Aucune solution séquentielle trouvée" << std::endl;
+        }
+        
+        return result;
+    } catch (const MazeException& e) {
+        std::cerr << e.what() << std::endl;
+        return false;
+    } catch (const std::exception& e) {
+        std::cerr << "❌ Erreur: Erreur inattendue -> " << e.what() << std::endl;
         return false;
     }
-    
-    bool result = solveMazeSequentially(start, false, false, false);
-    if (result) {
-        markPath();
-    }
-    return result;
 }
 
 bool SequentialSolver::solveMazeSequentially(Position pos, bool hasB, bool hasC, bool hasE) {
@@ -23,17 +38,15 @@ bool SequentialSolver::solveMazeSequentially(Position pos, bool hasB, bool hasC,
     if (!isValidMove(level, x, y)) return false;
     
     levels[level].visited[x][y] = true;
-    
     path.push_back(pos);
     
     char current = levels[level].maze[x][y];
+    if (current == KEY_B) hasB = true;
+    if (current == KEY_C) hasC = true;
+    if (current == KEY_E) hasE = true;
     
-    if (current == 'B') hasB = true;
-    if (current == 'C') hasC = true;
-    if (current == 'E') hasE = true;
-    
-    if (current == 'A') {
-        if (hasB && hasC && hasE) {
+    if (current == END) {
+        if (isExitReachable(hasB, hasC, hasE)) {
             return true;
         } else {
             path.pop_back();
@@ -42,10 +55,9 @@ bool SequentialSolver::solveMazeSequentially(Position pos, bool hasB, bool hasC,
         }
     }
     
-    // Gérer les portes et téléporteurs
-    if (current == '1') {
+    if (current == DOOR_1) {
         if (level == LEVEL_0) {
-            Position doorPos = findPosition(LEVEL_1_MAIN, '1');
+            Position doorPos = findPosition(LEVEL_1_MAIN, DOOR_1);
             if (doorPos.x != -1) {
                 if (solveMazeSequentially(doorPos, hasB, hasC, hasE)) {
                     return true;
@@ -53,9 +65,9 @@ bool SequentialSolver::solveMazeSequentially(Position pos, bool hasB, bool hasC,
             }
         }
     }
-    else if (current == '2') {
+    else if (current == DOOR_2) {
         if (level == LEVEL_1_MAIN || level == LEVEL_1_SEC) {
-            Position doorPos = findPosition(LEVEL_2, '2');
+            Position doorPos = findPosition(LEVEL_2, DOOR_2);
             if (doorPos.x != -1) {
                 if (solveMazeSequentially(doorPos, hasB, hasC, hasE)) {
                     return true;
@@ -63,9 +75,9 @@ bool SequentialSolver::solveMazeSequentially(Position pos, bool hasB, bool hasC,
             }
         }
     }
-    else if (current == 'T') {
+    else if (current == TELEPORT) {
         if (level == LEVEL_1_MAIN) {
-            Position doorPos = findPosition(LEVEL_1_SEC, '1');
+            Position doorPos = findPosition(LEVEL_1_SEC, DOOR_1);
             if (doorPos.x != -1) {
                 if (solveMazeSequentially(doorPos, hasB, hasC, hasE)) {
                     return true;
