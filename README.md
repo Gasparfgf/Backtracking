@@ -14,3 +14,27 @@ The objective of the program is to find a path from starting point D to ending p
 - A parallel backtracking algorithm using the C++11 thread library.
 - The function explores possible paths from D.
 - The path is valid only if it reaches A after collecting all three objects.
+
+## Structure des répertoires du projet
+
+src/
+├── common/
+│   ├── MazeCommon.hpp
+│   └── MazeCommon.cpp
+├── labyrinthe
+|   ├── maze0.txt
+|   ├── maze1-1.txt
+|   ├── maze1-2.txt
+|   └── maze2.txt
+├── parallel_direction/
+│   ├── ParallelDirectionSolver.hpp
+│   └── ParallelDirectionSolver.cpp
+├── parallel_level/
+│   ├── ParallelLevelSolver.hpp
+│   └── ParallelLevelSolver.cpp
+├── sequential/
+│   ├── SequentialSolver.hpp
+│   └── SequentialSolver.cpp
+├── main.cpp
+├── .gitignore
+└── README.md

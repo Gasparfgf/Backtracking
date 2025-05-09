@@ -22,9 +22,8 @@ int showMenu() {
 }
 
 int main() {
-    vector<string> files = {"maze0.txt", "maze1-1.txt", "maze1-2.txt", "maze2.txt"};
+    vector<string> files = {"labyrinthe/maze0.txt", "labyrinthe/maze1-1.txt", "labyrinthe/maze1-2.txt", "labyrinthe/maze2.txt"};
     
-    // Créer un solveur initial (sera remplacé selon le choix)
     unique_ptr<MazeSolver> solver;
     
     int choice;
