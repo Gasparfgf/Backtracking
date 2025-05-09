@@ -32,9 +32,9 @@ src/
 ├── parallel_level/
 │   ├── ParallelLevelSolver.hpp
 │   └── ParallelLevelSolver.cpp
-├── sequential/
-│   ├── SequentialSolver.hpp
-│   └── SequentialSolver.cpp
-├── main.cpp
-├── .gitignore
-└── README.md
+└──  sequential/
+    ├── SequentialSolver.hpp
+    └── SequentialSolver.cpp
+main.cpp
+.gitignore
+README.md
