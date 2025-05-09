@@ -10,7 +10,7 @@ void MazeSolver::readMazeFiles(const std::vector<std::string>& fileNames) {
         std::ifstream file(fileNames[i]);
         if (!file) {
             std::stringstream error;
-            error << "❌ Erreur: Erreur lors de l'ouverture du fichier " << fileNames[i];
+            error << "Erreur: Erreur lors de l'ouverture du fichier " << fileNames[i];
             throw MazeException(error.str());
         }
         
@@ -24,7 +24,7 @@ void MazeSolver::readMazeFiles(const std::vector<std::string>& fileNames) {
         
         if (levels[i].maze.empty()) {
             std::stringstream error;
-            error << "❌ Erreur: Le fichier " << fileNames[i] << " ne contient pas de labyrinthe valide";
+            error << "Erreur: Le fichier " << fileNames[i] << " ne contient pas de labyrinthe valide";
             throw MazeException(error.str());
         }
         
@@ -33,7 +33,7 @@ void MazeSolver::readMazeFiles(const std::vector<std::string>& fileNames) {
         for (size_t r = 1; r < levels[i].maze.size(); ++r) {
             if (levels[i].maze[r].size() != firstRowLength) {
                 std::stringstream error;
-                error << "❌ Erreur: Format invalide dans le fichier " << fileNames[i] 
+                error << "Erreur: Format invalide dans le fichier " << fileNames[i] 
                       << " : toutes les lignes doivent avoir la même longueur";
                 throw MazeException(error.str());
             }
@@ -81,7 +81,7 @@ Position MazeSolver::findPosition(int level, char target) const {
             }
         }
     }
-    return Position(-1, -1, -1); // Position non trouvée
+    return Position(-1, -1, -1);
 }
 
 bool MazeSolver::hasAllKeys(const Position& pos, bool& hasB, bool& hasC, bool& hasE) const {
@@ -111,7 +111,7 @@ void MazeSolver::markPath() {
 
 void MazeSolver::printMaze(int level) const {
     if (level < 0 || level >= static_cast<int>(levels.size())) {
-        std::cerr << "❌ Erreur: Niveau invalide -> " << level << std::endl;
+        std::cerr << "Erreur: Niveau invalide -> " << level << std::endl;
         return;
     }
     
@@ -152,7 +152,7 @@ void MazeSolver::printAllLevels() const {
 Position MazeSolver::getStartPosition() const {
     Position start = findPosition(LEVEL_0, START);
     if (start.x == -1) {
-        throw MazeException("❌ Erreur: Pas de point de départ 'D' trouvé dans le labyrinthe !");
+        throw MazeException("Erreur: Pas de point de départ 'D' trouvé dans le labyrinthe !");
     }
     return start;
 }
@@ -164,7 +164,7 @@ Position MazeSolver::getEndPosition() const {
             return end;
         }
     }
-    throw MazeException("❌ Erreur: Pas de point d'arrivée 'A' trouvé dans le labyrinthe !");
+    throw MazeException("Erreur: Pas de point d'arrivée 'A' trouvé dans le labyrinthe !");
 }
 
 bool MazeSolver::isExitReachable(bool hasB, bool hasC, bool hasE) const {
@@ -173,7 +173,7 @@ bool MazeSolver::isExitReachable(bool hasB, bool hasC, bool hasE) const {
 
 bool MazeSolver::checkMazeIntegrity() const {
     if (levels.empty()) {
-        std::cerr << "❌ Erreur: Aucun niveau de labyrinthe chargé" << std::endl;
+        std::cerr << "Erreur: Aucun niveau de labyrinthe chargé" << std::endl;
         return false;
     }
     
@@ -189,13 +189,13 @@ bool MazeSolver::checkMazeIntegrity() const {
         }
         
         if (!foundB) {
-            std::cerr << "⚠️ Avertissement : La clé 'B' n'est pas présente dans le labyrinthe" << std::endl;
+            std::cerr << "Avertissement : La clé 'B' n'est pas présente dans le labyrinthe" << std::endl;
         }
         if (!foundC) {
-            std::cerr << "⚠️ Avertissement : La clé 'C' n'est pas présente dans le labyrinthe" << std::endl;
+            std::cerr << "Avertissement : La clé 'C' n'est pas présente dans le labyrinthe" << std::endl;
         }
         if (!foundE) {
-            std::cerr << "⚠️ Avertissement : La clé 'E' n'est pas présente dans le labyrinthe" << std::endl;
+            std::cerr << "Avertissement : La clé 'E' n'est pas présente dans le labyrinthe" << std::endl;
         }
         
         // Vérifier la connectivité entre les niveaux
@@ -205,13 +205,13 @@ bool MazeSolver::checkMazeIntegrity() const {
         bool hasMainToSec = findPosition(LEVEL_1_MAIN, TELEPORT).x != -1 && findPosition(LEVEL_1_SEC, DOOR_1).x != -1;
         
         if (!hasLevel0To1) {
-            std::cerr << "⚠️ Avertissement : Aucune porte '1' reliant le niveau 0 au niveau 1" << std::endl;
+            std::cerr << "Avertissement : Aucune porte '1' reliant le niveau 0 au niveau 1" << std::endl;
         }
         if (!hasLevel1To2) {
-            std::cerr << "⚠️ Avertissement : Aucune porte '2' reliant le niveau 1 au niveau 2" << std::endl;
+            std::cerr << "Avertissement : Aucune porte '2' reliant le niveau 1 au niveau 2" << std::endl;
         }
         if (!hasMainToSec) {
-            std::cerr << "⚠️ Avertissement : Aucun téléporteur reliant les pièces du niveau 1" << std::endl;
+            std::cerr << "Avertissement : Aucun téléporteur reliant les pièces du niveau 1" << std::endl;
         }
         
         return true;

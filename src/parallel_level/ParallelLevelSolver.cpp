@@ -85,7 +85,7 @@ bool ParallelLevelSolver::solveMaze() {
                 markPath();
                 std::cout << "Success: Solution parallèle (par niveau) trouvée en " << path.size() << " pas" << std::endl;
             } catch (const std::exception& e) {
-                std::cerr << "⚠️ Avertissement: Erreur lors du marquage du chemin: " << e.what() << std::endl;
+                std::cerr << "Avertissement: Erreur lors du marquage du chemin: " << e.what() << std::endl;
                 std::cout << "Solution parallèle trouvée en " << path.size() << " pas, mais erreur lors de l'affichage" << std::endl;
             }
             return true;

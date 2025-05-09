@@ -38,3 +38,17 @@ src/
 main.cpp
 .gitignore
 README.md
+
+## Running the project
+
+1. Go to the root of the src folder (src/)
+
+2. Run the command :
+```bash
+$ g++ -std=c++11 -pthread main.cpp parallel_direction/ParallelDirectionSolver.cpp parallel_level/ParallelLevelSolver.cpp common/MazeCommon.cpp sequential/SequentialSolver.cpp -o test
+```
+
+3. Puis lancez la commande :
+```bash
+$ ./test
+```
