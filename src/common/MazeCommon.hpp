@@ -68,7 +68,7 @@ public:
     }
 };
 
-// Classe principale pour le labyrinthe
+
 class MazeSolver {
 protected:
     std::vector<Level> levels;

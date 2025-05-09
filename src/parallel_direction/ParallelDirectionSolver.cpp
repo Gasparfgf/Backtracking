@@ -6,29 +6,29 @@ bool ParallelDirectionSolver::solveMaze() {
         resetMaze();
         
         if (!checkMazeIntegrity()) {
-            std::cerr << "❌ Erreur: Vérification du labyrinthe échouée" << std::endl;
+            std::cerr << "Erreur: Vérification du labyrinthe échouée" << std::endl;
             return false;
         }
         
         Position start = getStartPosition();
         if (start.x == -1) {
-            std::cerr << "❌ Erreur: Pas de point de départ 'D' trouvé dans le labyrinthe !" << std::endl;
+            std::cerr << "Erreur: Pas de point de départ 'D' trouvé dans le labyrinthe !" << std::endl;
             return false;
         }
         
         bool result = solveMazeByDirectionParallel(start);
         if (result) {
             markPath();
-            std::cout << "✅ Solution parallèle (par direction) trouvée en " << path.size() << " pas" << std::endl;
+            std::cout << "Solution parallèle (par direction) trouvée en " << path.size() << " pas" << std::endl;
         } else {
-            std::cout << "❌ Erreur: Aucune solution parallèle (par direction) trouvée" << std::endl;
+            std::cout << "Erreur: Aucune solution parallèle (par direction) trouvée" << std::endl;
         }
         return result;
     } catch (const MazeException& e) {
         std::cerr << e.what() << std::endl;
         return false;
     } catch (const std::exception& e) {
-        std::cerr << "❌ Erreur: Erreur inattendue -> " << e.what() << std::endl;
+        std::cerr << "Erreur: Erreur inattendue -> " << e.what() << std::endl;
         return false;
     }
 }
@@ -47,9 +47,8 @@ bool ParallelDirectionSolver::solveMazeByDirectionParallel(Position start) {
                 
                 std::vector<Level> threadLevels = levels;
                 std::vector<Position> threadPath;
-                threadPath.push_back(start);  // Ajouter le point de départ au chemin
+                threadPath.push_back(start);
                 
-                // Résoudre à partir de cette direction (actuelle)
                 if (nextPos.x >= 0 && nextPos.x < threadLevels[nextPos.level].rows && 
                     nextPos.y >= 0 && nextPos.y < threadLevels[nextPos.level].cols && 
                     threadLevels[nextPos.level].maze[nextPos.x][nextPos.y] != WALL && 
@@ -60,7 +59,6 @@ bool ParallelDirectionSolver::solveMazeByDirectionParallel(Position start) {
                                                 threadPath, threadLevels);
                 }
                 
-                // Si une solution a été trouvée, la stocker de manière thread-safe
                 if (results[dir]) {
                     std::lock_guard<std::mutex> lock(pathMutex);
                     if (path.empty() || threadPath.size() < path.size()) {
@@ -68,7 +66,7 @@ bool ParallelDirectionSolver::solveMazeByDirectionParallel(Position start) {
                     }
                 }
             } catch (const std::exception& e) {
-                std::cerr << "❌ Erreur: Erreur dans le thread direction " << dir << " : " << e.what() << std::endl;
+                std::cerr << "Erreur: Erreur dans le thread direction " << dir << " : " << e.what() << std::endl;
             }
         });
     }
@@ -97,7 +95,6 @@ bool ParallelDirectionSolver::solveDirection(Position pos, bool hasB, bool hasC,
     int y = pos.y;
     int level = pos.level;
     
-    // mouvement est valide ?
     if (x < 0 || x >= threadLevels[level].rows || 
         y < 0 || y >= threadLevels[level].cols || 
         threadLevels[level].maze[x][y] == WALL || 

@@ -51,16 +51,16 @@ int main(int argc, char* argv[]) {
                     
                     bool success = solver->solveMaze();
                     if (success) {
-                        cout << "\nSolution trouvée ✅\n";
+                        cout << "\nSolution trouvée\n";
                         cout << "Chemin final :\n";
                         solver->printAllLevels();
                     } else {
-                        cout << "\nAucune solution trouvée ❌\n";
+                        cout << "\nAucune solution trouvée\n";
                     }
                 } catch (const MazeException& e) {
                     cerr << e.what() << endl;
                 } catch (const std::exception& e) {
-                    cerr << "❌ Erreur inattendue : " << e.what() << endl;
+                    cerr << "Erreur inattendue : " << e.what() << endl;
                 }
                 break;
             }
@@ -74,16 +74,16 @@ int main(int argc, char* argv[]) {
                     
                     bool success = solver->solveMaze();
                     if (success) {
-                        cout << "\nSolution trouvée ✅\n";
+                        cout << "\nSolution trouvée\n";
                         cout << "Chemin final :\n";
                         solver->printAllLevels();
                     } else {
-                        cout << "\nAucune solution trouvée ❌\n";
+                        cout << "\nAucune solution trouvée\n";
                     }
                 } catch (const MazeException& e) {
                     cerr << e.what() << endl;
                 } catch (const std::exception& e) {
-                    cerr << "❌ Erreur: Erreur inattendue -> " << e.what() << endl;
+                    cerr << "Erreur: Erreur inattendue -> " << e.what() << endl;
                 }
                 break;
             }
@@ -97,16 +97,16 @@ int main(int argc, char* argv[]) {
                     
                     bool success = solver->solveMaze();
                     if (success) {
-                        cout << "\nSolution trouvée ✅\n";
+                        cout << "\nSolution trouvée\n";
                         cout << "Chemin final :\n";
                         solver->printAllLevels();
                     } else {
-                        cout << "\nAucune solution trouvée ❌\n";
+                        cout << "\nAucune solution trouvée\n";
                     }
                 } catch (const MazeException& e) {
                     cerr << e.what() << endl;
                 } catch (const std::exception& e) {
-                    cerr << "❌ Erreur: Erreur inattendue -> " << e.what() << endl;
+                    cerr << "Erreur: Erreur inattendue -> " << e.what() << endl;
                 }
                 break;
             }

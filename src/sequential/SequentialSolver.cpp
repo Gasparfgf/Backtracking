@@ -6,7 +6,7 @@ bool SequentialSolver::solveMaze() {
         resetMaze();
         
         if (!checkMazeIntegrity()) {
-            std::cerr << "❌ Erreur: Vérification du labyrinthe échouée" << std::endl;
+            std::cerr << "Erreur: Vérification du labyrinthe échouée" << std::endl;
             return false;
         }
         
@@ -15,9 +15,9 @@ bool SequentialSolver::solveMaze() {
         
         if (result) {
             markPath();
-            std::cout << "✅ Solution séquentielle trouvée en " << path.size() << " pas" << std::endl;
+            std::cout << "Solution séquentielle trouvée en " << path.size() << " pas" << std::endl;
         } else {
-            std::cout << "❌ Aucune solution séquentielle trouvée" << std::endl;
+            std::cout << "Aucune solution séquentielle trouvée" << std::endl;
         }
         
         return result;
@@ -25,7 +25,7 @@ bool SequentialSolver::solveMaze() {
         std::cerr << e.what() << std::endl;
         return false;
     } catch (const std::exception& e) {
-        std::cerr << "❌ Erreur: Erreur inattendue -> " << e.what() << std::endl;
+        std::cerr << "Erreur: Erreur inattendue -> " << e.what() << std::endl;
         return false;
     }
 }
