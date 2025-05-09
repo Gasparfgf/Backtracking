@@ -22,10 +22,10 @@ src/<br>
 │   ├── MazeCommon.hpp<br>
 │   └── MazeCommon.cpp<br>
 ├── labyrinthe<br>
- |   ├── maze0.txt<br>
- |   ├── maze1-1.txt<br>
- |   ├── maze1-2.txt<br>
- |   └── maze2.txt<br>
+|   ├── maze0.txt<br>
+|   ├── maze1-1.txt<br>
+|   ├── maze1-2.txt<br>
+|   └── maze2.txt<br>
 ├── parallel_direction/<br>
 │   ├── ParallelDirectionSolver.hpp<br>
 │   └── ParallelDirectionSolver.cpp<br>
